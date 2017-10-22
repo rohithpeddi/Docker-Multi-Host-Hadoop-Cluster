@@ -1,4 +1,4 @@
-FROM devhadoop-base:latest
+FROM hadoop-base:latest
 
 USER root
 
