@@ -47,13 +47,13 @@ Overlay network can be created in multiple ways.
  
  #### master container on Host 1
  
-  * `docker run --rm --name hadoop-master --net test --ip 10.0.9.22 --hostname hadoop-master -it --add-host hadoop-slave-1:10.0.9.23  --add-host hadoop-slave-2:10.0.9.24 -p 50090:50090 -p 8088:8088 -p 50070:50070  hadoop-master`
+  * `docker run --rm --name hadoop-master --net hadoop-overlay --ip 10.0.9.22 --hostname hadoop-master -it --add-host hadoop-slave-1:10.0.9.23  --add-host hadoop-slave-2:10.0.9.24 -p 50090:50090 -p 8088:8088 -p 50070:50070  hadoop-master`
   
  #### slave conatiner on Host 2, Host 3, Host 4, ....
  
- * `docker run --rm --name hadoop-slave-1  --net test --ip 10.0.9.23  --hostname hadoop-slave-1 -it --add-host hadoop-master:10.0.9.22 hadoop-slave`
+ * `docker run --rm --name hadoop-slave-1  --net hadoop-overlay --ip 10.0.9.23  --hostname hadoop-slave-1 -it --add-host hadoop-master:10.0.9.22 hadoop-slave`
  
-  * `docker run --rm --name hadoop-slave-2  --net test --ip 10.0.9.24  --hostname hadoop-slave-2 -it --add-host hadoop-master:10.0.9.22 hadoop-slave`
+  * `docker run --rm --name hadoop-slave-2  --net hadoop-overlay --ip 10.0.9.24  --hostname hadoop-slave-2 -it --add-host hadoop-master:10.0.9.22 hadoop-slave`
  
   ###### Things to note
   
