@@ -1,0 +1,49 @@
+FROM ubuntu:16.04
+
+WORKDIR /root
+
+RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget openssh-server sudo supervisor
+
+ADD /asset/ /root/
+
+RUN ./create-services-group
+RUN ./create-hadoop-user
+
+USER hadoop 
+
+RUN ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa
+
+RUN cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+
+ENV HADOOP_VERSION 2.7.4
+
+ENV HOME /home/hadoop
+
+ENV HADOOP_HOME $HOME/hadoop-2.7.4
+
+WORKDIR $HOME
+
+RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz
+
+#things to change if hadoop home folder is changed
+# $HADOOP_HOME, supervisor conf
+RUN tar -xzvf hadoop-2.7.4.tar.gz && rm hadoop-2.7.4.tar.gz
+
+RUN mkdir -p $HOME/logs/supervisor && mkdir $HOME/hadoop-data
+
+# copy custom conf files to hadoop installation dir
+COPY --chown=hadoop:services /conf/hadoop/hadoop-conf/ $HADOOP_HOME/etc/hadoop/
+
+# set up easy automated ssh - force 'yes' to ssh 
+COPY --chown=hadoop:services /conf/hadoop/ssh_config  $HOME/.ssh/config
+
+USER root
+
+# Hdfs ports
+EXPOSE 9000 50010 50020 50070 50075 50090
+# See https://issues.apache.org/jira/browse/HDFS-9427
+EXPOSE 9871 9870 9820 9869 9868 9867 9866 9865 9864
+
+#Yarn ports
+EXPOSE 8030 8031 8032 8033 8040 8042 8088 8188
+

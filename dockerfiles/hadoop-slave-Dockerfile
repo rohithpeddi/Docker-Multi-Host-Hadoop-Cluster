@@ -1,0 +1,8 @@
+FROM devhadoop-base:latest
+
+USER root
+
+COPY /conf/hadoop/slave/supervisord_conf /etc/supervisor/conf.d/supervisord.conf
+
+#if not for supervisor,this is written in entrypoint script and then CMD is used 
+ENTRYPOINT service ssh start && /usr/bin/supervisord

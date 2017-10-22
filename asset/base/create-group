@@ -1,0 +1,4 @@
+#!/bin/bash
+GROUP_NAME=$1
+GROUP_GID=$2
+addgroup  -gid $GROUP_GID $GROUP_NAME 

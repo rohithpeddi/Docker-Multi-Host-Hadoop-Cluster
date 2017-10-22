@@ -1,0 +1,14 @@
+
+[supervisord]
+logfile=/tmp/supervisord.log ; (main log file;default $CWD/supervisord.log)
+nodaemon=true
+
+[program:datanode]
+command=/home/hadoop/hadoop-2.7.4/bin/hdfs datanode
+user=hadoop
+stdout_logfile=/home/hadoop/logs/supervisor/hadoop-%(program_name)s-stdout.log
+stderr_logfile=/home/hadoop/logs/supervisor/hadoop-%(program_name)s-stderr.log
+autorestart=true
+autorestart=unexpected
+
+

@@ -1,0 +1,16 @@
+FROM devhadoop-base:latest
+
+USER hadoop
+
+# copy custom conf files to hadoop installation dir
+COPY --chown=hadoop:services /conf/hadoop/master/masters $HADOOP_HOME/etc/hadoop/
+COPY --chown=hadoop:services /conf/hadoop/master/slaves $HADOOP_HOME/etc/hadoop/
+
+RUN $HADOOP_HOME/bin/hdfs namenode -format
+
+USER root
+
+COPY /conf/hadoop/master/supervisord_conf /etc/supervisor/conf.d/supervisord.conf
+
+#if not for supervisor,this is written in entrypoint script and then CMD is used 
+ENTRYPOINT service ssh start && /usr/bin/supervisord

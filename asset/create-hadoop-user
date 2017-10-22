@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source $(dirname $0)/base/ACCOUNTS_INFO
+$(dirname $0)/base/create-user $HADOOP_USER $HADOOP_UID $SERVICES_GROUP

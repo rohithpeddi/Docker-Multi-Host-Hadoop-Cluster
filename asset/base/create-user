@@ -1,0 +1,10 @@
+#!/bin/sh
+#   create-user username uid groupname gid
+USER_NAME=$1
+USER_UID=$2
+GROUP_NAME=$3
+adduser --system $USER_NAME --uid $USER_UID --home /home/$USER_NAME --ingroup $GROUP_NAME --shell /bin/bash
+echo $USER_NAME:$USER_NAME | chpasswd
+ln -s /home/$USER_NAME /var/lib/$USER_NAME
+chown -R $USER_NAME:$GROUP_NAME /var/lib/$USER_NAME
+echo "create user $USER_NAME ($USER_UID) and group $GROUP_NAME ($GROUP_GID), Home /home/$USER_NAME (/var/lib/$USER_NAME for backward compatibility)."
