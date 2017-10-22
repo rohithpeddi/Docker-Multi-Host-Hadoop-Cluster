@@ -1,4 +1,4 @@
-# Docker-Multi-Host-Hadoop-Cluster
+# Docker Multi Host Hadoop Cluster
 Deploying a hadoop cluster in docker containers running on multiple hosts. Master and slave containers on different hosts are connected via an overlay network.
 
 ## Creating an Overlay Network
