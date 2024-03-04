@@ -23,7 +23,7 @@ ENV HADOOP_HOME $HOME/hadoop-2.7.4
 
 WORKDIR $HOME
 
-RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz
+RUN wget https://archive.apache.org/dist/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz
 
 #things to change if hadoop home folder is changed
 # $HADOOP_HOME, supervisor conf
